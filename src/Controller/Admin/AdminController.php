@@ -19,4 +19,3 @@ class AdminController extends AbstractController
         return $this->render('pages/admin/home/index.html.twig');
     }
 }
-
