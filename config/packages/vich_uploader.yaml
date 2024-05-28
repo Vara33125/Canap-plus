@@ -13,3 +13,10 @@ vich_uploader:
            delete_on_update: true
            delete_on_remove: true
 
+        stores:
+            uri_prefix: /images/stores
+            upload_destination: '%kernel.project_dir%/public/images/stores'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
