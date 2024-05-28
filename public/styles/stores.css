@@ -40,10 +40,27 @@ body{
     font-size: large !important;
     color:#eee0cb !important;
   }
+  .map-responsive {
+    overflow: hidden !important;;
+    padding-bottom:56.25% !important;
+    position:relative !important;
+    height:0 !important;
+   }
+   .map-responsive iframe {
+    left:0 !important;
+    top:0 !important;
+    height:100% !important;
+    width:100% !important;
+    position:absolute !important;
+   }
 @media screen and (max-width : 768px) {
 
     .ColumnView{
         display: flex !important;
         flex-direction: column !important;
+        margin: 0 auto!important;
     }
+    .reduct{
+       width: 95px !important;   
+     }
 }
