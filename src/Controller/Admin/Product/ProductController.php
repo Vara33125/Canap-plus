@@ -12,6 +12,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin')]
@@ -36,7 +38,7 @@ class ProductController extends AbstractController
             $em->persist($product);
             $em->flush();
 
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_product_index');
         }
 
         return $this->render('pages/admin/product/new.html.twig', [
@@ -97,17 +99,16 @@ class ProductController extends AbstractController
     #[Route('/product/{id<\d+>}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Product $product, EntityManagerInterface $em): Response
     {
-        $form = $this->createForm(ProductFormType::class, $product);
-
-
-        $form->handleRequest($request);
+        
+         $form = $this->createForm(ProductFormType::class, $product);
+         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            
             $em->persist($product);
             $em->flush();
 
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_product_index');
         }
 
         return $this->render('pages/admin/product/edit.html.twig', [
@@ -116,7 +117,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/product/{id}', name: 'app_product_delete', methods: ['POST'])]
+    #[Route('/product/{id}/delete', name: 'admin_product_delete', methods: ['POST'])]
     public function delete(Request $request, Product $product, EntityManagerInterface $em): Response
     {
         if ($this->isCsrfTokenValid("delete_product_{$product->getId()}", $request->request->get('_csrf_token') )) {
@@ -125,6 +126,6 @@ class ProductController extends AbstractController
             $this->addFlash("success", "L'article {$product->getName()} a été supprimé avec succès");
         }
 
-        return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_product_index');
     }
 }

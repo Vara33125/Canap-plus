@@ -42,7 +42,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active " aria-current="page" href="#">Nos produits</a>
+              <a class="nav-link active " aria-current="page" href="{{path('app_product_client')}}">Nos produits</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{path('app_store_index')}}"> Nos magasins</a>
@@ -56,7 +56,7 @@
             {% if app.user %}
               <div class="dropdown-center me-3 my-1">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                 <i class="fa-solid fa-user"></i> 
+                  <i class="fa-solid fa-user"></i> 
                 </button>
                 <ul class="dropdown-menu ">
                   <li><a class="dropdown-item" href="#">Modifier mes informations</a></li>
@@ -68,25 +68,25 @@
                 </ul>
               </div>
               <form class="d-flex my-1" role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Rechercher"
-              aria-label="Search"
-            />
-          </form>
-            {% else %}
-            <form class="d-flex" role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Rechercher"
-              aria-label="Search"
-            />
-          </form>
-            <a id="signIn" href="{{path('visitor_app_register')}}" class="btn connect">S'inscrire </a>
-            <a href="{{path('visitor_app_login')}}" class="btn connect"> Connexion</a>
-            {% endif %}
+                <input
+                  class="form-control me-2"
+                  type="search"
+                  placeholder="Rechercher"
+                  aria-label="Search"
+                />
+              </form>
+              {% else %}
+              <form class="d-flex" role="search">
+                <input
+                 class="form-control me-2"
+                  type="search"
+                  placeholder="Rechercher"
+                  aria-label="Search"
+                />
+              </form>
+              <a id="signIn" href="{{path('visitor_app_register')}}" class="btn connect">S'inscrire </a>
+              <a href="{{path('visitor_app_login')}}" class="btn connect"> Connexion</a>
+              {% endif %}
         </div>
       </div>
            
