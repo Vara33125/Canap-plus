@@ -1,0 +1,40 @@
+{% extends 'themes/base_visitor.html.twig' %}
+
+{% block title %}{{product.name}}{% endblock %}
+{% block description %} Decouvrez nos produits mis en vente.{% endblock %}
+{% block keywords %}info, site, produit, artisant, français, cannapé{% endblock %}
+{% block style %}<link rel="stylesheet" href="/styles/detail.css">{% endblock %}
+    
+  {% block main %}
+
+    <style>
+    .affich{
+    display: flex;
+  }
+    @media  screen and (max-widht : 768px) {
+    .affich{
+        display: flex;
+        flex-direction: column ! important;
+    }
+}
+    </style>
+
+    <div class="container-fluid mt-5">
+        <div class="row ">
+            <div class="col-md-6 col-xs-12">
+                <img class="img-fluid ms-md-3" src="{{vich_uploader_asset(product, 'imageFile')}}" alt="{{product.name}}">
+            </div>
+            <div class="col-md-6 col-xs-12 d-flex flex-column justify-content-center ">
+                 <h2>{{product.name}}</h2>
+                 <small class=" ms-3 fst-italic" >{{product.category.name}}</small>  
+                 <p class="productDescription"> {{product.description | raw}} </p>
+                 <div class="d-flex justify-content-between me-5 pe-5">
+                 <h3>{{product.price}}€</h3>         
+                 <a class=" btn btn-colorGreen text-center" href=""> Ajouter au panier</a>
+                 </div>
+            </div>
+           
+        </div>
+    </div>
+
+{% endblock %}

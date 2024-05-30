@@ -74,7 +74,7 @@
                             </form>
                             <a href="{{path('app_product_show', {'id': product.id ,'slug' : product.slug })}}"><i class="fa-solid fa-eye"></i></a>
                             <a href="{{path('app_product_edit', {'id' : product.id})}}"><i class="fa-solid fa-pen mt-4"></i></a>
-                            <form action="{{path('app_product_delete', {'id':product.id})}}" method="post">
+                            <form action="{{path('admin_product_delete', {'id':product.id})}}" method="POST">
                                 <input type="hidden" name="_csrf_token" value="{{csrf_token('delete_product_'~product.id)}}"> 
                                 <button onclick="return confirm('Confirmer cette action?')" class="border-0 bg-white" type="submit"><i style='color:red' class="fa-solid fa-trash mt-4"></i></button> 
                             </form>
