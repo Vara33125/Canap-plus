@@ -26,6 +26,11 @@
                         <div class="text-danger">{{form_errors(form.Category)}}</div>
                     </div>
                     <div class="mb-3">
+                        <label for="admin_post_form_category">Tags</label>
+                        {{form_widget(form.Tags, {'attr':{'class':'form-control'}})}}
+                        <div class="text-danger">{{form_errors(form.Tags)}}</div>
+                    </div>
+                    <div class="mb-3">
                         <label for="admin_post_form_imageFile_image">Image</label>
                         {{form_widget(form.imageFile, {'attr':{'class':'form-control'}})}}
                         <div class="text-danger">{{form_errors(form.imageFile)}}</div>

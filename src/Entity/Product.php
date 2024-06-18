@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProductRepository;
@@ -79,6 +81,17 @@ class Product
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $Category = null;
+
+    /**
+     * @var Collection<int, Tag>
+     */
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'products')]
+    private Collection $Tags;
+
+    public function __construct()
+    {
+        $this->Tags = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -215,6 +228,30 @@ class Product
     public function setCategory(?Category $category): static
     {
         $this->Category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->Tags;
+    }
+
+    public function addTag(Tag $tag): static
+    {
+        if (!$this->Tags->contains($tag)) {
+            $this->Tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): static
+    {
+        $this->Tags->removeElement($tag);
 
         return $this;
     }
