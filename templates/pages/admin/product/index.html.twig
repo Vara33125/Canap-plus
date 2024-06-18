@@ -38,6 +38,7 @@
                     <th>Nom</th>
                     <th>Slug</th>
                     <th>Catégorie</th>
+                    <th>Tags</th>
                     <th>Image</th>
                     <th>Prix de vente</th>
                     <th>Description</th>
@@ -52,6 +53,9 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.slug }}</td>
                     <td>{{ product.category.name}}</td>
+                    <td>{% for tag in product.tags %}
+                        {{tag.name}}
+                    {% endfor %}</td>
                     <td><img  src="{{vich_uploader_asset(product, 'imageFile') | imagine_filter('admin') }}" alt="{{product.name}}"></td>
                     <td>{{ product.price }} €</td>
                     <td>{{ product.description }}</td>

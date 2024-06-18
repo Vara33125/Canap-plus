@@ -5,6 +5,7 @@
 {% block description %}Créer un produit{% endblock %}
 
 {% block keywords %}Admin, créer, produit{% endblock %} 
+
  
 {% block main %}
  <h1 class="text-center my-3 display-5">Nouvel article<hr></h1>
@@ -24,6 +25,11 @@
                         <label for="admin_post_form_category">Catégorie</label>
                         {{form_widget(form.Category, {'attr':{'class':'form-control'}})}}
                         <div class="text-danger">{{form_errors(form.Category)}}</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="admin_post_form_category">Tags</label>
+                        {{form_widget(form.Tags, {'attr':{'class':'form-control'}})}}
+                        <div class="text-danger">{{form_errors(form.Tags)}}</div>
                     </div>
                     <div class="mb-3">
                         <label for="admin_post_form_imageFile_image">Image</label>

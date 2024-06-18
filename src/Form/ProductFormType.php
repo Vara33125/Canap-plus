@@ -2,8 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\Category;
+use App\Entity\Tag;
 use App\Entity\Product;
+use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -25,8 +26,13 @@ class ProductFormType extends AbstractType
         ->add('Category', EntityType::class, [
             'class' => Category::class,
             'choice_label' => 'name',
+            ])
+        ->add('Tags', EntityType::class, [
+                'class' => Tag::class,
+                'choice_label' => 'name',
+                'expanded' => false,
+                'multiple' => true,
         ])
-    ;
         ;
     }
 
