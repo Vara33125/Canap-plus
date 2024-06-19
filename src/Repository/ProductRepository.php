@@ -16,6 +16,21 @@ class ProductRepository extends ServiceEntityRepository
         parent::__construct($registry, Product::class);
     }
 
+    public function findProductSearch(string $keywords) : array
+    {
+        $query = $this->createQueryBuilder('p')
+            ->leftJoin('p.category', 'c')
+            ->leftJoin('p.tags', 't');
+    
+        if (!empty($keywords)) {
+            $query = $query
+                ->andWhere('LOWER(p.name) LIKE :keywords OR LOWER(c.name) LIKE :keywords OR LOWER(t.name) LIKE :keywords')
+                ->setParameter('keywords', '%' . mb_strtolower($keywords) . '%');
+        }
+    
+        return $query->getQuery()->getResult();
+    }
+    
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */

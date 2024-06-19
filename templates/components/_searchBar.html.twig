@@ -1,0 +1,11 @@
+{% block style %}
+    <link rel="stylesheet" href="styles/search.css">
+{% endblock %}
+
+
+{{ form_start(form , {attr : {'class': 'd-flex' , 'methods': 'GET' , 'action': path('app_search') }})}}
+    {{ form_widget(form.keywords, {'attr':{ 'class' : 'form-control rounded-0'}}) }}
+    <button type="submit" class= "btn btn-colorMenu">
+        <i class="fas fa-search"></i>
+    </button>
+{{ form_end(form) }}

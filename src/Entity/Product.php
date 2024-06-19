@@ -80,17 +80,17 @@ class Product
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Category $Category = null;
+    private ?Category $category = null;
 
     /**
      * @var Collection<int, Tag>
      */
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'products')]
-    private Collection $Tags;
+    private Collection $tags;
 
     public function __construct()
     {
-        $this->Tags = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -222,12 +222,12 @@ class Product
 
     public function getCategory(): ?Category
     {
-        return $this->Category;
+        return $this->category;
     }
 
     public function setCategory(?Category $category): static
     {
-        $this->Category = $category;
+        $this->category = $category;
 
         return $this;
     }
@@ -237,13 +237,13 @@ class Product
      */
     public function getTags(): Collection
     {
-        return $this->Tags;
+        return $this->tags;
     }
 
     public function addTag(Tag $tag): static
     {
-        if (!$this->Tags->contains($tag)) {
-            $this->Tags->add($tag);
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
         }
 
         return $this;
@@ -251,7 +251,7 @@ class Product
 
     public function removeTag(Tag $tag): static
     {
-        $this->Tags->removeElement($tag);
+        $this->tags->removeElement($tag);
 
         return $this;
     }
