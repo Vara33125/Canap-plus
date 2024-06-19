@@ -1,0 +1,36 @@
+{% extends 'themes/base_visitor.html.twig' %}
+
+{% block title %}Demande de contact{% endblock %}
+{% block style %} <link rel="stylesheet" href="/styles/contact.css">{% endblock %}
+{% block main %}
+
+    <section class="container-fluid d-flex justify-content-center">
+            <div class="w-75 mt-5">
+                <div id="pres" class="d-flex justify-content-center container-fluid p-0 ">
+                    <h2 class="text-center "> Demande de contact </h2>
+                </div>
+            </div>
+    </section>
+    {{ form_start(form) }}
+     <main class="  d-flex align-items-center container-fluid h-100 mt-4 ">
+        <section class="container-fluid d-flex flex-column align-items-center shadow ">
+            <div id="logo" class="d-flex align-items-center justify-content-center bg-white bg-opacity-75 ">
+                <img src="/images/logo.png" alt="logo">   
+            </div>
+            <div class="container-fluid">
+                <div class="m-2 p-2">
+                
+                    <div class="d-flex flex-column smview  w-100">
+                        <div class="col-md-6 col-lg-6 row-cols-sm-1 pe-md-1 my-1 d-flex flex-column input">
+                            <label for="contatc_form_message" > Votre message <div class="text-danger"><small><em>{{form_errors(form.message)}}</em></small></div></label>
+                            {{form_widget(form.message, {'attr': { 'rows': '10','cols': '10'}})}}
+                        </div>
+                        <div class="d-flex justify-content-center ">
+                        <input formnovalidate class="btn btn-colorGreen rounded mt-4" type="submit" style="height: 40px; color: #eee0cb" value="Envoyer mon message"> 
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    {{ form_end(form) }}
+{% endblock %}

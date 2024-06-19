@@ -14,6 +14,11 @@
             <div>
             {{product.category.name}}
             </div>
+            <small class="fst-italic">
+            {% for tag in product.tags %}
+               - {{tag.name}} -
+            {% endfor %}
+            </small>
             <div>
             
             {% if product.isPublished %}
