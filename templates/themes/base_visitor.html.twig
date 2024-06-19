@@ -54,7 +54,7 @@
           </ul>
           
             {% if app.user %}
-              <div class="dropdown-center me-3 my-1">
+              <div class="dropdown-center me-3 my-1 mb-4 pb-3">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fa-solid fa-user"></i> 
                 </button>
@@ -67,23 +67,9 @@
                   <li><a class="dropdown-item" href="{{path('app_logout')}}">Se déconnecter</a></li>
                 </ul>
               </div>
-              <form class="d-flex my-1" role="search">
-                <input
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="Rechercher"
-                  aria-label="Search"
-                />
-              </form>
+              {{render(controller("App\\Controller\\Visitor\\SearchBar\\SearchBarController::getSearchBar"))}}
               {% else %}
-              <form class="d-flex" role="search">
-                <input
-                 class="form-control me-2"
-                  type="search"
-                  placeholder="Rechercher"
-                  aria-label="Search"
-                />
-              </form>
+              {{render(controller("App\\Controller\\Visitor\\SearchBar\\SearchBarController::getSearchBar"))}}
               <a id="signIn" href="{{path('visitor_app_register')}}" class="btn connect">S'inscrire </a>
               <a href="{{path('visitor_app_login')}}" class="btn connect"> Connexion</a>
               {% endif %}

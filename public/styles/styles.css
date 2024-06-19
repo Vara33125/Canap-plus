@@ -36,7 +36,7 @@ body{
     color:#eee0cb !important;
   }
   
-  footer {position: absolute; bottom: 0; left: 0; right: 0}
+  
 
  
   header {
@@ -55,10 +55,6 @@ body{
     color: #000 !important;
   }
  
-  h3{
-    font-family: 'Quicksand', sans-serif;
-    color: #eee0cb !important;
-  }
   h4{
     font-family: 'Quicksand', sans-serif;
   }

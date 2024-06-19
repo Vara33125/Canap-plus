@@ -27,11 +27,6 @@ class Contact
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $createdAt = null;
 
-    /**
-     * @var Collection<int, User>
-     */
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'contacts')]
-    private Collection $Users;
 
     #[ORM\Column]
     private ?bool $isGuest = null;
@@ -39,10 +34,7 @@ class Contact
     #[ORM\ManyToOne(inversedBy: 'contact')]
     private ?User $Author = null;
 
-    public function __construct()
-    {
-        $this->Users = new ArrayCollection();
-    }
+   
 
     public function getId(): ?int
     {
@@ -73,29 +65,9 @@ class Contact
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->Users;
-    }
+    
 
-    public function addUser(User $user): static
-    {
-        if (!$this->Users->contains($user)) {
-            $this->Users->add($user);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): static
-    {
-        $this->Users->removeElement($user);
-
-        return $this;
-    }
+   
 
     public function isGuest(): ?bool
     {

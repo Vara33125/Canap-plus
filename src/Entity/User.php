@@ -115,11 +115,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $verifiedAt = null;
 
-    /**
-     * @var Collection<int, Contact>
-     */
-    #[ORM\ManyToMany(targetEntity: Contact::class, mappedBy: 'Users')]
-    private Collection $contacts;
+    
 
     /**
      * @var Collection<int, Contact>
@@ -130,7 +126,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->roles[] = 'ROLE_USER';
-        $this->contacts = new ArrayCollection();
+        
         $this->contact = new ArrayCollection();
     }
 
@@ -304,19 +300,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Contact>
-     */
-    public function getContacts(): Collection
-    {
-        return $this->contacts;
-    }
-
+    
     public function addContact(Contact $contact): static
     {
-        if (!$this->contacts->contains($contact)) {
-            $this->contacts->add($contact);
-            $contact->addUser($this);
+        if (!$this->contact->contains($contact)) {
+            $this->contact->add($contact);
+           
         }
 
         return $this;
@@ -324,8 +313,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeContact(Contact $contact): static
     {
-        if ($this->contacts->removeElement($contact)) {
-            $contact->removeUser($this);
+        if ($this->contact->removeElement($contact)) {
+          
         }
 
         return $this;
