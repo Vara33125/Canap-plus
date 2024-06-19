@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -113,9 +115,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $verifiedAt = null;
 
+    /**
+     * @var Collection<int, Contact>
+     */
+    #[ORM\ManyToMany(targetEntity: Contact::class, mappedBy: 'Users')]
+    private Collection $contacts;
+
+    /**
+     * @var Collection<int, Contact>
+     */
+    #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'Author')]
+    private Collection $contact;
+
     public function __construct()
     {
         $this->roles[] = 'ROLE_USER';
+        $this->contacts = new ArrayCollection();
+        $this->contact = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -286,5 +302,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->verifiedAt = $verifiedAt;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Contact>
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): static
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts->add($contact);
+            $contact->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): static
+    {
+        if ($this->contacts->removeElement($contact)) {
+            $contact->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contact>
+     */
+    public function getContact(): Collection
+    {
+        return $this->contact;
     }
 }

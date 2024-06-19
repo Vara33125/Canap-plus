@@ -1,0 +1,75 @@
+{% extends 'themes/base_admin.html.twig' %}
+
+{% block title %}Liste des catégories{% endblock %}
+
+{% block description %}Liste des catégories{% endblock %}
+
+{% block keywords %}Admin, liste, catégories{% endblock %}
+
+{% block jQuery %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
+
+{% block DataTables %}
+    <link href="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/v/bs5/dt-2.0.7/datatables.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable({
+                language: { 
+                    url: 'https://cdn.datatables.net/plug-ins/2.0.7/i18n/fr-FR.json'
+                },
+            })
+        } );
+    </script>
+{% endblock %}
+
+{% block main %}
+    <h1 class="text-center my-3 display-5">Liste des catégories<hr></h1>
+
+    {% include 'components/_alert.html.twig' %}
+
+     
+
+    <div class="table-responsive w-75 mx-auto">
+        <table id="myTable" class="table table-hover text-center table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th class="col-sm-2 ">Id</th>
+                    <th class="col-sm-4">Message</th>
+                    <th class="col-sm-4">Utilisateur</th>
+                    <th class="col-sm-2">Options </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contact in contacts %}
+                    
+                    <tr>
+                        <td>{{contact.id}}</td>
+                        <td>{{contact.message}}</td>
+                        <td>{% if contact.isGuest == true %}
+                                Visiteur
+                            {% else %}
+                            <div>
+                            {{contact.Author.firstName}}  {{contact.Author.lastName}}
+                            </div>
+                            <div>
+                            {{contact.Author.email}}
+                            </div>
+                            <div>
+                            {{contact.Author.phone}}
+                            </div>
+                            {% endif %}</td>
+                        <td class="d-flex justify-content-evenly align-items-center">
+                            
+                            <form action="{{path('app_contact_admin_delete', {'id' : contact.id})}}" method="post">
+                                <input type="hidden" name="_csrf_token" value="{{csrf_token('delete_contact_'~contact.id)}}">
+                                <button class="border-0 bg-white pb-3" type="submit"><i style='color:red' class="fa-solid fa-trash mt-4"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
