@@ -59,6 +59,10 @@ body{
     width:500px;
    
  }
+ .btn-colorGreen{
+  background-color: #506c64 !important;
+  color: #eee0cb !important;      
+}
  .bloc button {
     display:none;
     position:absolute;

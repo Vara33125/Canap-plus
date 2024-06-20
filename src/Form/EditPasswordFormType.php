@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Regex;
@@ -12,20 +13,26 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Validator\Constraints\PasswordStrength;
 use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 
-class ChangePasswordFormType extends AbstractType
+class EditPasswordFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'options' => [
-                    'attr' => [
-                        'autocomplete' => 'new-password',
-                    ],
-                ],
-                'first_options' => [
+            
+        ->add('currentPassword', PasswordType::class, [
+            "mapped" => false,
+            "constraints" => [
+                new UserPassword([
+                    "message" => "Ceci n'est pas votre mot de passe actuel"
+                ])
+            ]
+        ])
+        ->add('password', RepeatedType::class, [
+            'type' => PasswordType::class,
+            
+            'first_options' => [
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Ce champs est obligatoire',
@@ -41,24 +48,27 @@ class ChangePasswordFormType extends AbstractType
                         'match'=> true,
                         'message'=> "Le mot de passe doit contentir au moins une lettre miniscule, majuscule, un chiffre et un caractère spécial.",
                     ]),
-                    new PasswordStrength(),
+                    
                     new NotCompromisedPassword(),
                 ],
-                    'label' => 'New password',
-                ],
-                'second_options' => [
-                    'label' => 'Repeat Password',
-                ],
-                'invalid_message' => 'The password fields must match.',
-                // Instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-            ])
+                'label' => 'New password',
+            ],
+            'second_options' => [
+                'label' => 'Repeat Password',
+            ],
+            'invalid_message' => 'Les mots de passe doivent être identique',
+            // Instead of being set onto the object directly,
+            // this is read and encoded in the controller
+            'mapped' => false,
+        ])
+          
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([]);
+        $resolver->setDefaults([
+            
+        ]);
     }
 }

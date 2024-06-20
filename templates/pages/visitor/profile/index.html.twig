@@ -1,0 +1,36 @@
+{% extends 'themes/base_visitor.html.twig' %}
+
+{% block title %}Espace utilisateur{% endblock %}
+{% block description %} Esapce utilisateur{% endblock %}
+{% block keywords %}info, site, adresse, modifier, compte, informations{% endblock %}
+{% block style %}<link rel="stylesheet" href="/styles/product.css">{% endblock %}
+
+{% block main %}
+<h1 class="text-center my-5">Bienvenue {{app.user.firstName}} dans votre espace utilisateur</h1>
+{% include 'components/_alert.html.twig' %}
+<div class="containeur-fluid">
+    <div class="col-lg-3 ms-5">
+        <h2 class="bold">Mes informations : </h2>
+    </div>
+    <div class="col-lg-8 mx-auto my-lg-4 shadow">
+        <div class="h4 p-2">Prénom : <em class="fw-normal"> {{app.user.firstName}}</em></div> 
+        <div class="h4 p-2">Nom : <em class="fw-normal"> {{app.user.lastName}}</em></div>
+        <div class="h4 p-2">Email : <em class="fw-normal"> {{app.user.email}}</em></div>
+        <div class="h4 p-2">Téléphone : <em class="fw-normal"> {{app.user.phone}}</em></div>
+        <div class="h4 p-2">Adresse :
+            <em class="fw-normal"> {{app.user.adress}} -</em>
+            <em class="fw-normal"> {{app.user.cp}} -</em>
+            <em class="fw-normal ms-1"> {{app.user.city}}</em>
+        </div> 
+        <div class="d-flex justify-content-around ">
+            <a href="{{path('app_profile_edit')}}" class="btn colorGreen mb-3"> Modifier mes informations</a>
+            <a href="{{path('app_profile_edit_password')}}" class="btn colorGreen mb-3"> Modifier mon mot de passe</a>
+            <a href="{{path('app_profile_delete')}}" onclick="return confirm('Confirmer cette action?')" class="btn btn-danger  mb-3"> Supprimer mon compte</a>
+
+        </div>
+        
+        
+
+    </div>
+</div>
+{% endblock %}

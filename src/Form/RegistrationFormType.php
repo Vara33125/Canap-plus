@@ -28,7 +28,7 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class)
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'Le mot de" passe doit être identique à sa confirmation.',
+                'invalid_message' => 'Le mot de passe doit être identique à sa confirmation.',
             ])
             ->add('adress', TextType::class)
             ->add('city', TextType::class)
