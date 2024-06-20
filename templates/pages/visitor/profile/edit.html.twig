@@ -1,0 +1,58 @@
+{% extends 'themes/base_visitor.html.twig' %}
+
+{% block title %}Modifier mes informations{% endblock %}
+{% block description %} Modification de mes informations{% endblock %}
+{% block keywords %} site, adresse, modifier, compte, informations{% endblock %}
+{% block style %}<link rel="stylesheet" href="/styles/edit.css">{% endblock %}
+
+{% block main %}
+        <h1 class="text-center my-5">Modifier mes informations</h1>
+        
+        
+           
+        <div class="container-fluid col-md-7 ">
+            <div class="m-2 p-2  ">
+                {{ form_start(form) }}
+                    <input type="hidden" name="_method" value="PUT">
+                    <div class=" smview  w-100 d-flex flex-column align-items-center">
+                        <div class="col-md-9  row-cols-sm-1 pe-md-1 my-1 d-flex flex-column input">
+                            <label class="my-1" for="registration_form_firstName"  > Prénom  <div class="text-danger"><small><em>{{form_errors(form.firstName)}}</em></small></div></label>
+                            {{form_widget(form.firstName, {'attr': { 'autofocus':'autofocus'}})}}
+                        </div>
+                        <div class="col-md-9  row-cols-sm-1 my-1 d-flex flex-column input">
+                            <label class="my-1" for="registration_form_lastname" > Nom<div class="text-danger"><small><em>{{form_errors(form.lastName)}}</em></small></div></label>
+                            {{ form_widget(form.lastName) }}
+                        </div>
+                    </div>
+                    <div class=" smview  w-100 d-flex flex-column align-items-center ">
+                        <div class=" col-md-9 row-cols-sm-1 pe-md-1 my-1 d-flex flex-column input">
+                            <label class="my-1" for="registration_email"> Email<div class="text-danger"><small><em>{{form_errors(form.email)}}</em></small></div></label>
+                            {{ form_widget(form.email) }}
+                        </div>
+                        
+                        <div class="col-md-9  row-cols-sm-1  my-1  d-flex flex-column input">
+                            <label  class="my-1" for="registration_form_phone" > Numéro de téléphone<div class="text-danger"><small><em>{{form_errors(form.phone)}}</em></small></div></label>
+                            {{ form_widget(form.phone) }}
+                        </div>
+                    </div>
+                    <div class=" smview  w-100 d-flex flex-column align-items-center ">
+                      <div class="  col-md-9  row-cols-sm-1  my-1 d-flex flex-column input">
+                          <label class="my-1" for="registration_form_adress" > Adresse<div class="text-danger"><small><em>{{form_errors(form.adress)}}</em></small></div></label>
+                          {{ form_widget(form.adress) }}
+                      </div>
+                      <div class="  col-md-9  row-cols-sm-1  my-1  d-flex flex-column input">
+                          <label class="my-1" for="registration_form_city" >Ville<div class="text-danger"><small><em>{{form_errors(form.city)}}</em></small></div></label>
+                          {{ form_widget(form.city) }}
+                      </div>
+                      <div class="  col-md-9  row-cols-sm-1 my-1   d-flex flex-column input ">
+                          <label class="my-1" for="registration_form_cp" > Code Postal<div class="text-danger"><small><em>{{form_errors(form.cp)}}</em></small></div></label>
+                          {{ form_widget(form.cp) }}
+                      </div>
+                  </div>
+                  <div class="d-flex justify-content-center mt-3">
+                        <input formnovalidate class="btn btn-colorGreen rounded" type="submit" style="height: 40px; " value="Modifier mes informations"> </input>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+{% endblock %}
