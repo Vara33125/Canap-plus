@@ -1,5 +1,7 @@
 twig:
     file_name_pattern: '*.twig'
+    globals:
+        basket_service: "@App\\Service\\Basket\\BasketService"   
 
 when@test:
     twig:

@@ -17,16 +17,8 @@ body{
   .colorFooter {
     color: #eee0cb !important;
   }
-  .pricePosition {
-    position: absolute;
-    bottom: 0;
-  }
-  .productName{
-    font-family: 'Kalam', cursive;
-  }
-  .productDescription{
-    font-family: 'Montserrat', sans-serif;
-  }
+  
+  
   .connect:hover{
     background-color: #506c64 !important;
     color: #eee0cb !important;
@@ -53,14 +45,9 @@ body{
   }
  
   
-  h1 {
-    display: none;
-    color: #000 !important;
-  }
+
  
-  h4{
-    font-family: 'Quicksand', sans-serif;
-  }
+  
   footer {
     height:150px !important;
   }

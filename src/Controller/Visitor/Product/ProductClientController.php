@@ -27,4 +27,5 @@ class ProductClientController extends AbstractController
                 "product" => $product
             ]);
     }
+    
 }
