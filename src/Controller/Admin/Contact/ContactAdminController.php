@@ -18,8 +18,8 @@ class ContactAdminController extends AbstractController
     #[Route('/contact', name: 'app_contact_admin')]
     public function index( ContactRepository $contact): Response
     {
-        $contacts = $contact->findAll();
         
+        $contacts = $contact->findAll();
         return $this->render('pages/admin/contact/index.html.twig', [
             'contacts' => $contacts
         ]);

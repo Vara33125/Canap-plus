@@ -34,6 +34,25 @@ class Contact
     #[ORM\ManyToOne(inversedBy: 'contact')]
     private ?User $Author = null;
 
+
+
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'Le numéro de téléphone ne doit pas depasser de {{ limit }} caractères',
+    )]
+    #[Assert\NotBlank (message: "Le téléphone est obligatoire.")]
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $visitor_phone = null;
+    
+    #[Assert\NotBlank (message: "L'email est obligatoire.")]
+    #[Assert\Length(
+        max: 255,
+        maxMessage:"L'email ne doit pas dépaser {{ limit }} caractères",
+    )]
+    #[Assert\Email(message: "L'email {{ value }} est invalide")]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $visitor_email = null;
+
    
 
     public function getId(): ?int
@@ -89,6 +108,30 @@ class Contact
     public function setAuthor(?UserInterface $Author): self
     {
         $this->Author = $Author;
+
+        return $this;
+    }
+
+    public function getVisitorPhone(): ?string
+    {
+        return $this->visitor_phone;
+    }
+
+    public function setVisitorPhone(?string $visitor_phone): static
+    {
+        $this->visitor_phone = $visitor_phone;
+
+        return $this;
+    }
+
+    public function getVisitorEmail(): ?string
+    {
+        return $this->visitor_email;
+    }
+
+    public function setVisitorEmail(?string $visitor_email): static
+    {
+        $this->visitor_email = $visitor_email;
 
         return $this;
     }

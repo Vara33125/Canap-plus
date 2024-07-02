@@ -34,10 +34,14 @@ class ContactUserController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 
+
+                
                 $contact->setCreatedAt(New DateTimeImmutable());
                 
                 if ($this->getUser() == null) {
                    $contact->setGuest(true);
+               
+
                 }else{
                     $contact->setGuest(false);
                     $user = $this->security->getUser();
