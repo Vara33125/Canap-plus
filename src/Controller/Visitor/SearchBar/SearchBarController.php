@@ -21,7 +21,10 @@ class SearchBarController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
            
             $data = $form->getData();
-            $products = $search->searchProduct($data['keywords']);
+            $keyword = htmlspecialchars($data['keywords'], 
+            ENT_QUOTES, 'UTF-8');
+           
+            $products = $search->searchProduct($keyword);
            
 
             return $this->render('pages/visitor/search_bar/index.html.twig', [

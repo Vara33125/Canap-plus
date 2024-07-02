@@ -43,12 +43,14 @@
             </thead>
             <tbody>
                 {% for contact in contacts %}
-                    
+                   
                     <tr>
                         <td>{{contact.id}}</td>
                         <td>{{contact.message}}</td>
                         <td>{% if contact.isGuest == true %}
-                                Visiteur
+                                <div>Visiteur</div>
+                                {# <div> {{contact.visitor_email}}</div>
+                                <div> {{contact.visitor_phone}}</div>  #}
                             {% else %}
                             <div>
                             {{contact.Author.firstName}}  {{contact.Author.lastName}}
