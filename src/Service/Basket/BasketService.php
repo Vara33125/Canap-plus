@@ -104,4 +104,8 @@ use Symfony\Component\HttpFoundation\RequestStack;
             $this->setBasket($basket);
 
         }
+        public function emptyBasket()
+        {
+        $this->requestStack->getSession()->set('basket', []);
+        }
 }
