@@ -88,9 +88,18 @@ class Product
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'products')]
     private Collection $tags;
 
+    /**
+     * @var Collection<int, Basket>
+     */
+    #[ORM\OneToMany(targetEntity: Basket::class, mappedBy: 'product')]
+    private Collection $baskets;
+
+   
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->baskets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -255,4 +264,36 @@ class Product
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Basket>
+     */
+    public function getBaskets(): Collection
+    {
+        return $this->baskets;
+    }
+
+    public function addBasket(Basket $basket): static
+    {
+        if (!$this->baskets->contains($basket)) {
+            $this->baskets->add($basket);
+            $basket->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBasket(Basket $basket): static
+    {
+        if ($this->baskets->removeElement($basket)) {
+            // set the owning side to null (unless already changed)
+            if ($basket->getProduct() === $this) {
+                $basket->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+  
 }

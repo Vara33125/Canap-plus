@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\StoreRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -45,6 +47,17 @@ class Store
 
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $map = null;
+
+    /**
+     * @var Collection<int, Order>
+     */
+    #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'store')]
+    private Collection $orders;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -125,5 +138,35 @@ class Store
             // otherwise the event listeners won't be called and the file is lost
             
         }
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setStore($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getStore() === $this) {
+                $order->setStore(null);
+            }
+        }
+
+        return $this;
     }
 }
