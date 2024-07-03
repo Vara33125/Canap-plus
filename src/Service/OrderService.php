@@ -10,7 +10,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 
     class OrderService
-    {
+    {   
+
+
+        private Order $order;
+        
         public function __construct( private EntityManagerInterface $em , private Security $security, private BasketService $basketService)
         {
             
@@ -49,5 +53,18 @@ use Symfony\Bundle\SecurityBundle\Security;
             }
 
             $this->em->flush();
+
+
+            return $order;
+        }
+
+        public function getOrder(): Order
+        {
+            return $this->order;
+        }
+
+        public function setOrder(Order $order) : void
+        {
+            $this->order = $order;
         }
     }

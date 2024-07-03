@@ -1,12 +1,13 @@
 <?php
 namespace App\Controller\Visitor\Order;
 
+use App\Entity\Order;
 use App\Form\OrderFormType;
-use App\Service\Basket\BasketService;
 use App\Service\OrderService;
+use App\Service\Basket\BasketService;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\HttpFoundation\Request;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,6 +29,8 @@ class OrderController extends AbstractController
     #[Route('/index', name: 'app_order_index')]
     public function index(Security $security, Request $request): Response
     {   
+        $order = new Order;
+
 
         $products = $this->basketService->getBasketItems();
         $prixTotal = $this->basketService->getBasketTotalAmount();
@@ -40,14 +43,20 @@ class OrderController extends AbstractController
         $form = $this->createForm(OrderFormType::class);
 
         $form->handleRequest($request);
-
+        
         if ( $form->isSubmitted() && $form->isValid() ) {
             
             $store = $form->get('store')->getData();
+            
+            $order = $this->orderService->persist($store);
+            
+            
 
-            $this->orderService->persist($store);
-
-            return $this->redirectToRoute('app_payment_index');
+            return $this->redirectToRoute('app_checkout', [
+                
+                'id' => $order->getId()
+                
+            ]);
         }
 
 
