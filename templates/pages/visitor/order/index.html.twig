@@ -1,0 +1,59 @@
+{% extends 'themes/base_visitor.html.twig' %}
+
+{% block title %}Ma commande{% endblock %}
+{% block description %} Accès a mon panier{% endblock %}
+{% block keywords %}info, site, panier, achat, commande{% endblock %}
+{% block style %}<link rel="stylesheet" href="/styles/panier.css">{% endblock %}
+{% block main %}
+    <h1 class="text-center my-5"> Votre commande</h1>
+
+    <div class="container-fluid d-md-flex">
+        <div class="col-lg-6">
+            <h2 class="ms-5 mb-4">Choississez le magasin pour le retrait de votre commande</h2>
+                {{ form_start(form) }}
+                 <div class=" ms-5 col-md-6 col-lg-10 row-cols-sm-1 pe-md-1 my-1 d-flex flex-column input">
+                    <label for="order_form_store" > Magasin <div class="text-danger"><small><em>{{form_errors(form.store)}}</em></small></div></label>
+                    {{form_widget(form.store, {'attr': { 'class':'form-control'}})}}
+                </div>
+            
+        </div>
+        <div class="col-lg-6">
+            <h2 class="mb-5 text-center">Récapitulatif de votre commande</h2>
+            
+                 <div class="table-responsive pe-4">
+                    <table class="table table-striped table-hover text-center">
+                        <thead >
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prix</th>
+                                <th>Quantité</th>
+                                <th>Total</th>
+                            
+                            </tr>
+                        </thead>
+                            {% for product in product %}
+                        <tbody >
+                                <td>{{ product.product.name}}</td>
+                                <td>{{ product.product.price}}</td>
+                                <td>{{ product.quantity}}</td>
+                                <td>{{ product.getAmount}}</td>
+                        </tbody>
+                            {% endfor %}
+                    </table>       
+                </div>
+           
+            <div class="mt-5 mb-5 text-center">
+                <div style="font-size : 30px"> 
+                    <b>Prix total de la commande: </b>
+                    {{Total}} €
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class=" my-5 text-center">
+            <div class="mb-3">
+                <input formnovalidate type="submit" class="btn btn-green shadow" value="Procéder au paiement">
+            </div>
+        </div>
+        {{ form_end(form) }}
+{% endblock %}
