@@ -4,9 +4,7 @@
   .colorMenu {
     background-color: #eee0cb !important;
   }
-  .burgerMenu {
-    margin-right: 5px;
-  }
+  
   .colorFooter {
     color: #eee0cb !important;
   }
@@ -43,9 +41,10 @@
     width: 55%;
   }
   footer {
-    position: fixed;
-    bottom: 0;
-    right: 0;
+    height:150px !important;
+    position: absolute;
+    width: 100%; height: 50px;
+    bottom: 0; left: 0; right: 0;
   }
   
   @media screen and (min-width: 700px) {

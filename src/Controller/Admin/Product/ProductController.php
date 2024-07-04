@@ -88,6 +88,44 @@ class ProductController extends AbstractController
         return $this->redirectToRoute('app_product_index');
     }
 
+    #[Route('/product/{id<\d+>}/new', name: 'admin_product_new', methods: ['POST'])]
+    public function newProduct(Product $product, Request $request, EntityManagerInterface $em): Response
+    {
+        //permet de vérifier si le jeton est valide
+        if($this->isCsrfTokenValid("new_product_{$product->getId()}", $request->request->get('_csrf_token') ))
+        {
+        // Si l'article n'a pas encore été publié
+        if ( false === $product->isNew() ) 
+        {
+            // Publier l'article
+                $product->setNew(true);
+                     
+            // Demander au manager des entités de préparer la requête de modification
+                $em->persist($product);
+            // Générer le message flash expliquant que l'article a été publié
+                $this->addFlash("success", "L'article {$product->getName()} a été ajouté aux nouveautés");
+
+                
+        }
+        else
+        {
+            // Retirer l'article de la liste des publications
+                $product->setNew(false);
+            
+                            
+            // Demander au manager des entités de préparer la requête de modification
+                $em->persist($product);
+            // Générer le message expliquant de l'article a été retiré de la liste des publications
+                $this->addFlash("success", "L'article {$product->getName()} a été retiré des nouveautés");
+        }
+        // Demander au manager des entités d'exécuter la requête préparée
+        $em->flush();
+        // Effectuer une redirection vers la page listant les articles 
+            // Puis, arrêter l'exécution du script
+    }       
+        return $this->redirectToRoute('app_product_index');
+    }
+
     #[Route('/product/{id<\d+>}/{slug}/show', name: 'app_product_show', methods: ['GET'])]
     public function show(Product $product): Response
     {

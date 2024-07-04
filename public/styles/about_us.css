@@ -11,22 +11,11 @@ body{
   .colorMenu {
     background-color: #eee0cb !important;
   }
-  .burgerMenu {
-    margin-right: 5px;
-  }
+ 
   .colorFooter {
     color: #eee0cb !important;
   }
-  .pricePosition {
-    position: absolute;
-    bottom: 0;
-  }
-  .productName{
-    font-family: 'Kalam', cursive;
-  }
-  .productDescription{
-    font-family: 'Montserrat', sans-serif;
-  }
+
   .connect:hover{
     background-color: #506c64 !important;
     color: #eee0cb !important;
