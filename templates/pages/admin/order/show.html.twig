@@ -1,0 +1,88 @@
+{% extends 'themes/base_admin.html.twig' %}
+
+{% block title %}Detail commande  {% endblock %}
+{% block description %}Détail commande{% endblock %}
+{% block keywords %}commandes, gestion, administration{% endblock %}
+
+{% block main %}
+    <h1 class="text-center my-5">Commande N° {{order.id}}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Client:</th>
+                 <td>
+                    <div class="d-flex flex-column">
+                        <div>
+                            {{ order.user.firstName }} {{order.user.lastName}}
+                        </div>
+                        <div>
+                            {{order.user.adress}}
+                        </div>
+                        <div>
+                            {{order.user.cp}} {{order.user.city}}
+                        </div>
+                    </div>    
+                </td>
+            </tr>
+            <tr>
+                <th>Email client:</th>
+                <td>{{ order.user.email}}</td>
+            </tr>
+            <tr>
+                <th>Téléphone client:</th>
+                <td>{{ order.user.phone}}</td>
+            </tr>
+            <tr>
+                <th>Commande passé le:</th>
+                <td>{{ order.createdAt ? order.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Produit:</th>
+                <td>{% for product in product %}
+                        {{product.productName}} |
+                {% endfor %} </td>
+            </tr>
+            <tr>
+                <th>Quantité:</th>
+                <td>{% for product in product %}
+                        {{product.quantity}} |
+                {% endfor %} </td>
+            </tr>
+             <tr>
+                <th>Prix Unitaire:</th>
+                <td>{% for product in product %}
+                        {{product.price}} |
+                {% endfor %}€ </td>
+            </tr>
+            <tr>
+                <th>Montant Total:</th>
+                <td>{{ order.orderAmount }} €</td>
+            </tr>
+            <tr>
+                <th>Payé:</th>
+                <td>{{ order.isPaid ? 'Oui' : 'Non' }}</td>
+            </tr>
+            <tr>
+                <th>Magasin:</th>
+                <td>
+                    <div class="d-flex flex-column">
+                        <div>
+                            {{ order.store.adress }} 
+                        </div>
+                    
+                        <div>
+                            {{order.store.cp}} {{order.store.city}}
+                        </div>
+                    </div>    
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn btn-dark" href="{{ path('app_order_admin_index') }}">retour</a>
+
+    
+
+    
+{% endblock %}

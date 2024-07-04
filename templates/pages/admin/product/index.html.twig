@@ -43,6 +43,7 @@
                     <th>Prix de vente</th>
                     <th>Description</th>
                     <th>Est publié?</th>
+                    <th>Nouveauté</th>
                     <th>Options</th>
                 </tr>
             </thead>
@@ -68,6 +69,15 @@
                             <p>Non</p>
                         {% endif %}</td>
                 
+                    
+                    <td>{{ product.isNew  ? 'Oui' : 'Non'}}
+                         <form action="{{path('admin_product_new', {'id': product.id})}}" method="post" class="mb-2">
+                                <input type="hidden" name="_csrf_token" value="{{csrf_token('new_product_'~product.id)}}">
+                                <div class="form-check  d-flex flex-column align-items-center">
+                                    <input onclick="return confirm('Confirmer cette action?')" onchange="this.form.submit()" class="form-check-input" type="checkbox"  {{product.isNew ?'checked' :''}}>
+                                </div>
+                            </form>
+                    </td>
                     <td>
                         <div class="d-flex flex-column justify-content-around h-100">
                             <form action="{{path('admin_product_publish', {'id': product.id})}}" method="post" class="mb-2">

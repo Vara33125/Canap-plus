@@ -94,6 +94,9 @@ class Product
     #[ORM\OneToMany(targetEntity: Basket::class, mappedBy: 'product')]
     private Collection $baskets;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isNew = null;
+
    
 
     public function __construct()
@@ -291,6 +294,18 @@ class Product
                 $basket->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isNew(): ?bool
+    {
+        return $this->isNew;
+    }
+
+    public function setNew(?bool $isNew): static
+    {
+        $this->isNew = $isNew;
 
         return $this;
     }
